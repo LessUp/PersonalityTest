@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t personality-test-app -f Dockerfile .",
+    "docker:run": "docker run --rm -p 3000:3000 personality-test-app",
+    "deploy": "docker compose -f ../docker-compose.yml up --build -d"
   },
   "dependencies": {
     "next": "14.2.5",
