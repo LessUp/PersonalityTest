@@ -3,7 +3,16 @@ import Link from 'next/link';
 
 import styles from '../../styles/Assessments.module.css';
 
-const mockAssessments = [
+interface AssessmentCard {
+  id: string;
+  name: string;
+  duration: string;
+  description: string;
+  focus: string[];
+  href?: string;
+}
+
+const mockAssessments: AssessmentCard[] = [
   {
     id: 'mbti',
     name: 'Myers-Briggs Type Indicator',
@@ -25,6 +34,15 @@ const mockAssessments = [
     description:
       'Measure openness, conscientiousness, extraversion, agreeableness, and neuroticism to see your balance.',
     focus: ['Self-awareness', 'Teamwork'],
+  },
+  {
+    id: 'big-five-bfi10',
+    name: 'Big Five Inventory (BFI-10)',
+    duration: '5 minutes',
+    description:
+      'A research-validated 10-item inventory with Likert scoring grounded in Rammstedt & John (2007).',
+    focus: ['Scientific', 'Self-awareness'],
+    href: '/tests/scientific',
   },
   {
     id: 'strengths',
@@ -82,7 +100,7 @@ const AssessmentsPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Link href={`/tests/${assessment.id}`} className={styles.cardLink}>
+                <Link href={assessment.href ?? `/tests/${assessment.id}`} className={styles.cardLink}>
                   View details
                 </Link>
               </article>
