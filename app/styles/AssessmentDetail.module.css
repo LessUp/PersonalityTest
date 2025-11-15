@@ -1,0 +1,203 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.headerSection {
+  margin-bottom: 2.5rem;
+}
+
+.headerSection h1 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.headerSection p {
+  margin: 0.5rem 0;
+  color: #334155;
+}
+
+.duration {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.focusList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 1rem 0 0;
+  list-style: none;
+}
+
+.focusList li {
+  padding: 0.35rem 0.75rem;
+  background: #e2e8f0;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.formSection {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 2rem;
+}
+
+.formSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.respondentFieldset,
+.questionsFieldset {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: #f8fafc;
+}
+
+.respondentFieldset legend,
+.questionsFieldset legend {
+  font-weight: 600;
+  padding: 0 0.5rem;
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.fieldLabel input {
+  border: 1px solid #cbd5f5;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+}
+
+.fieldLabel input:focus {
+  outline: 3px solid rgba(59, 130, 246, 0.25);
+  border-color: #2563eb;
+}
+
+.questionsFieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.questionCard {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.questionPrompt {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.optionGroup {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.optionLabel:hover {
+  background: #eff6ff;
+}
+
+.optionLabel input[type='radio'] {
+  accent-color: #2563eb;
+}
+
+.errorBox {
+  border-radius: 12px;
+  border: 1px solid #fca5a5;
+  background: #fee2e2;
+  padding: 1rem 1.25rem;
+  color: #7f1d1d;
+  margin-bottom: 1.5rem;
+}
+
+.errorBox ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.successMessage {
+  border-radius: 12px;
+  border: 1px solid #4ade80;
+  background: #dcfce7;
+  padding: 1rem 1.25rem;
+  color: #166534;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .fieldLabel {
+    margin-bottom: 0.75rem;
+  }
+}

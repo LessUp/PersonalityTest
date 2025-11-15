@@ -1,41 +1,45 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import type { Assessment } from '../../lib/types';
 import styles from '../../styles/Assessments.module.css';
 
-const mockAssessments = [
-  {
-    id: 'mbti',
-    name: 'Myers-Briggs Type Indicator',
-    duration: '15 minutes',
-    description: 'Understand your personality preferences and uncover how you process information.',
-    focus: ['Communication', 'Decision-making'],
-  },
-  {
-    id: 'enneagram',
-    name: 'Enneagram',
-    duration: '12 minutes',
-    description: 'Discover the core motivations that drive your behavior and relationships.',
-    focus: ['Motivation', 'Growth'],
-  },
-  {
-    id: 'big-five',
-    name: 'Big Five',
-    duration: '10 minutes',
-    description:
-      'Measure openness, conscientiousness, extraversion, agreeableness, and neuroticism to see your balance.',
-    focus: ['Self-awareness', 'Teamwork'],
-  },
-  {
-    id: 'strengths',
-    name: 'Strengths Inventory',
-    duration: '8 minutes',
-    description: 'Pinpoint the energizing tasks that help you stay in flow throughout the workday.',
-    focus: ['Career', 'Energy'],
-  },
-];
-
 const AssessmentsPage = () => {
+  const [assessments, setAssessments] = useState<Assessment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadAssessments() {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/assessments', { signal: controller.signal });
+
+        if (!response.ok) {
+          const message = await response.text();
+          throw new Error(message || 'Failed to load assessments.');
+        }
+
+        const data = (await response.json()) as Assessment[];
+        setAssessments(data);
+        setError(null);
+      } catch (loadError) {
+        if ((loadError as Error).name !== 'AbortError') {
+          setError('We were unable to load assessments. Please try again later.');
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadAssessments();
+
+    return () => controller.abort();
+  }, []);
+
   return (
     <>
       <Head>
@@ -67,8 +71,12 @@ const AssessmentsPage = () => {
             <h2>Explore the catalog</h2>
             <p>Click into any card to review details, preview sample questions, and begin when you are ready.</p>
           </div>
+
+          {isLoading && <p>Loading assessments…</p>}
+          {error && <p role="alert">{error}</p>}
+
           <div className={styles.cardGrid}>
-            {mockAssessments.map((assessment) => (
+            {assessments.map((assessment) => (
               <article key={assessment.id} className={styles.card}>
                 <header className={styles.cardHeader}>
                   <h3>{assessment.name}</h3>

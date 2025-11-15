@@ -1,0 +1,83 @@
+[
+  {
+    "id": "mbti",
+    "name": "Myers-Briggs Type Indicator",
+    "duration": "15 minutes",
+    "description": "Understand your personality preferences and uncover how you process information.",
+    "focus": ["Communication", "Decision-making"],
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "You find it easy to introduce yourself to other people.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      },
+      {
+        "id": "q2",
+        "prompt": "You often spend time exploring unrealistic yet intriguing ideas.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      },
+      {
+        "id": "q3",
+        "prompt": "You prefer to have a to-do list for each day.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      }
+    ]
+  },
+  {
+    "id": "enneagram",
+    "name": "Enneagram",
+    "duration": "12 minutes",
+    "description": "Discover the core motivations that drive your behavior and relationships.",
+    "focus": ["Motivation", "Growth"],
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "I crave a sense of purpose and significance in what I do.",
+        "type": "single-choice",
+        "options": ["Not me", "Somewhat me", "Neutral", "Mostly me", "Exactly me"]
+      },
+      {
+        "id": "q2",
+        "prompt": "I often anticipate potential problems and plan for them in advance.",
+        "type": "single-choice",
+        "options": ["Not me", "Somewhat me", "Neutral", "Mostly me", "Exactly me"]
+      },
+      {
+        "id": "q3",
+        "prompt": "I feel energized when I am supporting other people's growth.",
+        "type": "single-choice",
+        "options": ["Not me", "Somewhat me", "Neutral", "Mostly me", "Exactly me"]
+      }
+    ]
+  },
+  {
+    "id": "big-five",
+    "name": "Big Five",
+    "duration": "10 minutes",
+    "description": "Measure openness, conscientiousness, extraversion, agreeableness, and neuroticism to see your balance.",
+    "focus": ["Self-awareness", "Teamwork"],
+    "questions": [
+      {
+        "id": "q1",
+        "prompt": "I am the life of the party.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      },
+      {
+        "id": "q2",
+        "prompt": "I like order.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      },
+      {
+        "id": "q3",
+        "prompt": "I have a vivid imagination.",
+        "type": "single-choice",
+        "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+      }
+    ]
+  }
+]
