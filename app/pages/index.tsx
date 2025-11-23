@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 import styles from '../styles/Home.module.css';
 
@@ -52,6 +53,28 @@ const testimonials = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+};
+
 const HomePage = () => {
   return (
     <>
@@ -64,61 +87,144 @@ const HomePage = () => {
       </Head>
 
       <main className={styles.page}>
-        <section className={styles.hero}>
-          <p className={styles.eyebrow}>Discover your strengths</p>
-          <h1 className={styles.title}>Build self-awareness with curated personality assessments</h1>
-          <p className={styles.subtitle}>
-            Uncover patterns, clarify motivations, and learn how to leverage your unique strengths with
-            thoughtfully designed assessments and actionable guidance.
-          </p>
-          <div className={styles.heroCtaGroup}>
+        <motion.section
+          className={styles.hero}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.p
+            className={styles.eyebrow}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Discover your strengths
+          </motion.p>
+          <motion.h1
+            className={styles.title}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Build self-awareness with curated personality assessments
+          </motion.h1>
+          <motion.p
+            className={styles.subtitle}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Uncover patterns, clarify motivations, and learn how to leverage your unique strengths
+            with thoughtfully designed assessments and actionable guidance.
+          </motion.p>
+          <motion.div
+            className={styles.heroCtaGroup}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
             <Link href="/tests" className={styles.primaryCta}>
               Start exploring assessments
             </Link>
             <Link href="/tests#overview" className={styles.secondaryCta}>
               See how it works
             </Link>
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
         <section className={styles.featuresSection}>
-          <h2 className={styles.sectionTitle}>Why people love this library</h2>
-          <div className={styles.featureGrid}>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Why people love this library
+          </motion.h2>
+          <motion.div
+            className={styles.featureGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
             {featureHighlights.map((feature) => (
-              <article key={feature.title} className={styles.featureCard}>
+              <motion.article
+                key={feature.title}
+                className={styles.featureCard}
+                variants={itemVariants}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className={styles.discoverySection}>
-          <h2 className={styles.sectionTitle}>Find your next insight</h2>
-          <div className={styles.discoveryGrid}>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Find your next insight
+          </motion.h2>
+          <motion.div
+            className={styles.discoveryGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
             {discoveryCards.map((card) => (
-              <article key={card.title} className={styles.discoveryCard}>
+              <motion.article
+                key={card.title}
+                className={styles.discoveryCard}
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
                 <p className={styles.cardEyebrow}>{card.eyebrow}</p>
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
                 <Link href={card.href} className={styles.cardCta}>
                   {card.cta}
                 </Link>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className={styles.testimonialsSection}>
-          <h2 className={styles.sectionTitle}>Hear from recent explorers</h2>
-          <div className={styles.testimonialGrid}>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Hear from recent explorers
+          </motion.h2>
+          <motion.div
+            className={styles.testimonialGrid}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
             {testimonials.map((testimonial) => (
-              <figure key={testimonial.author} className={styles.testimonialCard}>
+              <motion.figure
+                key={testimonial.author}
+                className={styles.testimonialCard}
+                variants={itemVariants}
+              >
                 <blockquote>{testimonial.quote}</blockquote>
                 <figcaption>{testimonial.author}</figcaption>
-              </figure>
+              </motion.figure>
             ))}
-          </div>
+          </motion.div>
         </section>
       </main>
     </>
