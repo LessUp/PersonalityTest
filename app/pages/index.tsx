@@ -61,6 +61,28 @@ const testimonials = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+};
+
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50">
@@ -71,7 +93,6 @@ const HomePage = () => {
           content="Explore a catalog of personality assessments and track your results."
         />
       </Head>
-
       <main className="container mx-auto px-4 py-12 max-w-6xl space-y-24">
         {/* Hero Section */}
         <section className="relative overflow-hidden rounded-[2rem] bg-white dark:bg-gray-800 p-8 md:p-16 shadow-xl border border-gray-100 dark:border-gray-700">
