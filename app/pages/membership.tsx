@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useAuth } from '../contexts/AuthContext';
-import { membershipPlans } from '../lib/userStore';
+import { membershipPlans } from '../lib/membershipPlans';
 import styles from '../styles/Membership.module.css';
 
 export default function MembershipPage() {

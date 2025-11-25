@@ -70,15 +70,25 @@ export function validateAssessmentPayload(payload: Partial<Assessment>): { asses
   const normalizedAssessment: Assessment = {
     id: normalizeId(payload.id ?? payload.name!),
     name: payload.name!,
+    nameZh: payload.nameZh || payload.name!,
     duration: payload.duration!,
     description: payload.description!,
+    descriptionZh: payload.descriptionZh || payload.description!,
+    category: payload.category || 'personality',
+    isPremium: payload.isPremium || false,
     focus: payload.focus!.map((item) => item.trim()),
     questions: payload.questions!.map((question) => ({
       id: question.id,
       prompt: question.prompt,
       type: question.type,
       options: question.type === 'single-choice' ? question.options : undefined,
+      dimension: question.dimension,
+      scoring: question.scoring,
     })),
+    dimensions: payload.dimensions,
+    references: payload.references,
+    reliability: payload.reliability,
+    validity: payload.validity,
   };
 
   return { assessment: normalizedAssessment };
@@ -91,6 +101,10 @@ export function validateAssessmentUpdate(
   const merged: Assessment = {
     ...current,
     ...payload,
+    nameZh: payload.nameZh || current.nameZh || current.name,
+    descriptionZh: payload.descriptionZh || current.descriptionZh || current.description,
+    category: payload.category || current.category || 'personality',
+    isPremium: payload.isPremium ?? current.isPremium ?? false,
     focus: payload.focus ? payload.focus.map((item) => item.trim()) : current.focus,
     questions: payload.questions
       ? payload.questions.map((question) => ({
@@ -98,6 +112,8 @@ export function validateAssessmentUpdate(
           prompt: question.prompt,
           type: question.type,
           options: question.type === 'single-choice' ? question.options : undefined,
+          dimension: question.dimension,
+          scoring: question.scoring,
         }))
       : current.questions,
   };
