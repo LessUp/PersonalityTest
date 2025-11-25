@@ -2,18 +2,19 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ArrowLeft, Clock, CheckCircle2, AlertCircle, Send, User, Mail, TrendingUp, Target, Briefcase, Heart } from 'lucide-react';
-import type { Submission } from '../../lib/types';
-
-import type { Assessment } from '../../lib/types';
+import { ArrowLeft, Clock, CheckCircle2, AlertCircle, Send, User, Mail, TrendingUp, Target, Briefcase, Heart, Share2, Download, RotateCcw } from 'lucide-react';
+import type { Submission, Assessment } from '../../lib/types';
+import { useToast } from '../../contexts/ToastContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 const AssessmentDetailPage = () => {
   const router = useRouter();
+  const toast = useToast();
   const assessmentId = useMemo(() => {
     if (typeof router.query.id === 'string') {
       return router.query.id;
@@ -36,6 +37,7 @@ const AssessmentDetailPage = () => {
   const [submitErrors, setSubmitErrors] = useState<string[]>([]);
   const [submissionResult, setSubmissionResult] = useState<Submission | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   // Progress calculation
   const progress = useMemo(() => {
@@ -147,19 +149,60 @@ const AssessmentDetailPage = () => {
         const errorsFromServer = Array.isArray(body.errors) ? body.errors : ['Submission failed.'];
         setSubmitErrors(errorsFromServer);
         setSubmissionResult(null);
+        toast.error('提交失败', errorsFromServer[0]);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const body = await response.json();
         setSubmissionResult(body);
+        toast.success('测评完成！', '您的测评结果已生成，请查看详细分析。');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (submitError) {
       setSubmitErrors(['提交失败，请稍后重试。']);
       setSubmissionResult(null);
+      toast.error('网络错误', '提交失败，请检查网络后重试。');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Handle share
+  const handleShare = async () => {
+    if (!submissionResult) return;
+    
+    const shareText = `我在心理测评平台完成了「${assessment?.nameZh || assessment?.name}」测评！结果：${submissionResult.resultSummary}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: '我的心理测评结果',
+          text: shareText,
+          url: window.location.href,
+        });
+        toast.success('分享成功');
+      } catch (err) {
+        // User cancelled sharing
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareText + '\n' + window.location.href);
+        toast.success('已复制到剪贴板', '分享内容已复制，您可以粘贴分享给朋友。');
+      } catch (err) {
+        toast.error('复制失败', '请手动复制分享内容。');
+      }
+    }
+  };
+
+  // Reset and retake test
+  const handleRetake = () => {
+    setAnswers({});
+    setSubmissionResult(null);
+    setSubmitErrors([]);
+    setCurrentQuestionIndex(0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast.info('重新开始', '您可以重新完成这个测评了。');
   };
 
   return (
@@ -355,14 +398,28 @@ const AssessmentDetailPage = () => {
                 )}
 
                 {/* 行动按钮 */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Button asChild variant="outline" size="lg">
-                    <Link href="/results">查看所有结果</Link>
-                  </Button>
-                  <Button asChild size="lg">
-                    <Link href="/tests">继续探索其他测评</Link>
-                  </Button>
-                </div>
+                <Card className="bg-gray-50 dark:bg-gray-800/50">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Button onClick={handleShare} variant="outline" size="lg" className="gap-2">
+                        <Share2 className="h-4 w-4" />
+                        分享结果
+                      </Button>
+                      <Button onClick={handleRetake} variant="outline" size="lg" className="gap-2">
+                        <RotateCcw className="h-4 w-4" />
+                        重新测评
+                      </Button>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+                      <Button asChild variant="secondary" size="lg">
+                        <Link href="/results">查看所有结果</Link>
+                      </Button>
+                      <Button asChild size="lg">
+                        <Link href="/tests">继续探索其他测评</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             ) : (
               <>
@@ -389,13 +446,18 @@ const AssessmentDetailPage = () => {
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-6">
-                    <div 
-                      className="bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-in-out" 
-                      style={{ width: `${progress}%` }}
-                    ></div>
+                  <div className="mt-6">
+                    <Progress 
+                      value={progress} 
+                      max={100}
+                      showLabel
+                      size="md"
+                      variant={progress === 100 ? 'success' : 'gradient'}
+                    />
+                    <p className="text-xs text-gray-500 mt-2">
+                      已回答 {Object.keys(answers).length} / {assessment.questions.length} 题
+                    </p>
                   </div>
-                  <p className="text-xs text-right text-gray-500 mt-1">已完成 {progress}%</p>
                 </header>
 
                 <form onSubmit={handleSubmit} noValidate className="space-y-8">
