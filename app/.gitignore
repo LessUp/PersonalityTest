@@ -18,3 +18,18 @@
 
 # typescript
 *.tsbuildinfo
+
+# additional ignores
+coverage/
+build/
+dist/
+.vscode/
+.idea/
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.swp
+*.tmp
+*.bak
