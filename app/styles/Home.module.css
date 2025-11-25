@@ -112,6 +112,12 @@
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
+.featureIcon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .featureCard h3 {
   margin-top: 0;
   margin-bottom: 0.75rem;

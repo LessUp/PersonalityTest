@@ -1,230 +1,133 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 import styles from '../styles/Home.module.css';
 
 const featureHighlights = [
   {
-    title: 'Personalized Insights',
+    icon: '🎯',
+    title: '个性化洞察',
     description:
-      'Understand how your preferences influence the way you communicate, collaborate, and make decisions.',
+      '了解您的性格偏好如何影响沟通方式、协作风格和决策模式，发现独特的自己。',
   },
   {
-    title: 'Progress Tracking',
+    icon: '📊',
+    title: '成长追踪',
     description:
-      'Save your results to revisit them later and monitor how your self-perception evolves over time.',
+      '保存测试结果，随时回顾，监测自我认知的变化和个人成长轨迹。',
   },
   {
-    title: 'Expert Guidance',
+    icon: '🔬',
+    title: '科学指导',
     description:
-      'Each assessment includes science-backed tips to help you put your personality insights into action.',
+      '每项测评都基于心理学研究，提供专业的结果分析和可行的改进建议。',
   },
 ];
 
 const discoveryCards = [
   {
-    eyebrow: 'Start Exploring',
-    title: 'Browse the Test Library',
+    eyebrow: '开始探索',
+    title: '浏览测评库',
     description:
-      'From MBTI to the Enneagram and Big Five, find the assessment that resonates with your goals.',
+      '从 MBTI 到大五人格、DISC 到霍兰德职业兴趣，找到适合您目标的测评。',
     href: '/tests',
-    cta: 'See all assessments',
+    cta: '查看所有测评',
   },
   {
-    eyebrow: 'New to Personality Tests?',
-    title: 'Learn how they work',
+    eyebrow: '新用户指南',
+    title: '了解测评如何工作',
     description:
-      'Get a quick primer on what each framework measures and how the results can support your growth.',
+      '快速了解每种测评框架的测量内容，以及结果如何帮助您成长。',
     href: '/tests#overview',
-    cta: 'Read the overview',
+    cta: '阅读概述',
   },
 ];
 
 const testimonials = [
   {
     quote:
-      '“The guided insights helped me have deeper conversations with my team about how we collaborate.”',
-    author: 'Leah, Product Manager',
+      '"测评的深入分析帮助我与团队进行了更有效的协作沟通。"',
+    author: '李经理，产品总监',
   },
   {
-    quote: '“I finally understand why certain tasks energize me and others drain me.”',
-    author: 'Miguel, UX Designer',
+    quote: '"终于明白为什么有些工作让我充满活力，有些却让我疲惫。"',
+    author: '王设计师，用户体验',
+  },
+  {
+    quote: '"科学的职业测评为我的转型提供了清晰的方向。"',
+    author: '张先生，职业规划',
   },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  },
-};
 
 const HomePage = () => {
   return (
     <>
       <Head>
-        <title>Personality Assessments</title>
+        <title>心理测评平台 - 探索自我，发现潜能</title>
         <meta
           name="description"
-          content="Explore a catalog of personality assessments and track your results."
+          content="专业的心理测评平台，提供 MBTI、大五人格、DISC 等科学量表，帮助您深入了解自己。"
         />
       </Head>
 
       <main className={styles.page}>
-        <motion.section
-          className={styles.hero}
-          initial={{ opacity: 1, y: 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.p
-            className={styles.eyebrow}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            Discover your strengths
-          </motion.p>
-          <motion.h1
-            className={styles.title}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Build self-awareness with curated personality assessments
-          </motion.h1>
-          <motion.p
-            className={styles.subtitle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Uncover patterns, clarify motivations, and learn how to leverage your unique strengths
-            with thoughtfully designed assessments and actionable guidance.
-          </motion.p>
-          <motion.div
-            className={styles.heroCtaGroup}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
+        <section className={styles.hero}>
+          <p className={styles.eyebrow}>发现你的优势</p>
+          <h1 className={styles.title}>
+            通过专业测评，深入了解自己
+          </h1>
+          <p className={styles.subtitle}>
+            发掘行为模式，明确内在动机，借助科学设计的测评工具和专业指导，释放您独特的潜能。
+          </p>
+          <div className={styles.heroCtaGroup}>
             <Link href="/tests" className={styles.primaryCta}>
-              Start exploring assessments
+              开始探索测评
             </Link>
             <Link href="/tests#overview" className={styles.secondaryCta}>
-              See how it works
+              了解更多
             </Link>
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
 
         <section className={styles.featuresSection}>
-          <motion.h2
-            className={styles.sectionTitle}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Why people love this library
-          </motion.h2>
-          <motion.div
-            className={styles.featureGrid}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-          >
+          <h2 className={styles.sectionTitle}>为什么选择我们</h2>
+          <div className={styles.featureGrid}>
             {featureHighlights.map((feature) => (
-              <motion.article
-                key={feature.title}
-                className={styles.featureCard}
-                variants={itemVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              >
+              <article key={feature.title} className={styles.featureCard}>
+                <span className={styles.featureIcon}>{feature.icon}</span>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
-              </motion.article>
+              </article>
             ))}
-          </motion.div>
+          </div>
         </section>
 
         <section className={styles.discoverySection}>
-          <motion.h2
-            className={styles.sectionTitle}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Find your next insight
-          </motion.h2>
-          <motion.div
-            className={styles.discoveryGrid}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-          >
+          <h2 className={styles.sectionTitle}>开启自我探索</h2>
+          <div className={styles.discoveryGrid}>
             {discoveryCards.map((card) => (
-              <motion.article
-                key={card.title}
-                className={styles.discoveryCard}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
+              <article key={card.title} className={styles.discoveryCard}>
                 <p className={styles.cardEyebrow}>{card.eyebrow}</p>
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
                 <Link href={card.href} className={styles.cardCta}>
                   {card.cta}
                 </Link>
-              </motion.article>
+              </article>
             ))}
-          </motion.div>
+          </div>
         </section>
 
         <section className={styles.testimonialsSection}>
-          <motion.h2
-            className={styles.sectionTitle}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Hear from recent explorers
-          </motion.h2>
-          <motion.div
-            className={styles.testimonialGrid}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-          >
+          <h2 className={styles.sectionTitle}>用户反馈</h2>
+          <div className={styles.testimonialGrid}>
             {testimonials.map((testimonial) => (
-              <motion.figure
-                key={testimonial.author}
-                className={styles.testimonialCard}
-                variants={itemVariants}
-              >
+              <figure key={testimonial.author} className={styles.testimonialCard}>
                 <blockquote>{testimonial.quote}</blockquote>
                 <figcaption>{testimonial.author}</figcaption>
-              </motion.figure>
+              </figure>
             ))}
-          </motion.div>
+          </div>
         </section>
       </main>
     </>

@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { randomUUID } from 'crypto';
 
-import type { Assessment, Submission } from '../../../lib/types';
+import type { Assessment, Submission, Answer } from '../../../lib/types';
 import { readAssessments, readSubmissions, writeSubmissions } from '../../../lib/dataStore';
+import { generateDetailedResult, generateResultSummary } from '../../../lib/resultAnalyzer';
 
 const emptyAssessments: Assessment[] = [];
 const emptySubmissions: Submission[] = [];
@@ -79,16 +80,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return;
     }
 
+    // 处理答案并计算分数
+    const processedAnswers: Answer[] = answers!.map((answer) => {
+      const question = assessment!.questions.find(q => q.id === answer.questionId);
+      const score = question?.scoring?.[answer.value.trim()];
+      return {
+        questionId: answer.questionId,
+        value: answer.value.trim(),
+        score: score,
+      };
+    });
+
+    // 生成详细结果分析
+    const detailedResult = generateDetailedResult(assessment!, processedAnswers);
+    const resultSummary = generateResultSummary(assessment!, detailedResult);
+
     const submission: Submission = {
       id: randomUUID(),
       assessmentId: assessmentId!,
       respondent: { name: name!, email: email! },
-      answers: answers!.map((answer) => ({
-        questionId: answer.questionId,
-        value: answer.value.trim(),
-      })),
-      resultSummary: `Submission recorded for assessment ${assessment!.name}.`,
+      answers: processedAnswers,
+      resultSummary,
+      detailedResult,
       createdAt: new Date().toISOString(),
+      completedAt: new Date().toISOString(),
     };
 
     submissions.push(submission);
