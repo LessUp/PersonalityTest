@@ -8,5 +8,5 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    command: npm run start
+    command: node server.js
     restart: unless-stopped

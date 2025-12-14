@@ -13,10 +13,21 @@ async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
 
   try {
     const raw = await fs.readFile(filePath, 'utf-8');
+    if (raw.trim().length === 0) {
+      await writeJsonFile(fileName, fallback);
+      return fallback;
+    }
     return JSON.parse(raw) as T;
   } catch (error: unknown) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      await fs.writeFile(filePath, JSON.stringify(fallback, null, 2));
+    const nodeError = error as NodeJS.ErrnoException;
+
+    if (nodeError.code === 'ENOENT') {
+      await writeJsonFile(fileName, fallback);
+      return fallback;
+    }
+
+    if (error instanceof SyntaxError) {
+      await writeJsonFile(fileName, fallback);
       return fallback;
     }
 
@@ -27,7 +38,9 @@ async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
 async function writeJsonFile<T>(fileName: string, data: T): Promise<void> {
   const dataDir = await ensureDataDir();
   const filePath = path.join(dataDir, fileName);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`;
+  await fs.writeFile(tempPath, JSON.stringify(data, null, 2));
+  await fs.rename(tempPath, filePath);
 }
 
 export async function readAssessments<T>(fallback: T): Promise<T> {
