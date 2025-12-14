@@ -1,0 +1,368 @@
+.membershipPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, rgba(93, 63, 211, 0.08), rgba(29, 161, 242, 0.08));
+  border-radius: 24px;
+  margin-bottom: 2rem;
+}
+
+.heroIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+}
+
+.hero p {
+  color: #64748b;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Current Plan */
+.currentPlan {
+  margin-bottom: 2rem;
+}
+
+.currentPlanCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid #5d3fd3;
+  max-width: 320px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(93, 63, 211, 0.15);
+}
+
+.planIcon {
+  font-size: 2rem;
+}
+
+.planInfo h3 {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.planName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #5d3fd3;
+  margin: 0;
+}
+
+/* Plans Section */
+.plansSection {
+  margin-bottom: 4rem;
+}
+
+.plansSection h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  color: #0f172a;
+  margin-bottom: 2rem;
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.planCard {
+  position: relative;
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s;
+}
+
+.planCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+
+.planCard.featured {
+  border-color: #5d3fd3;
+  box-shadow: 0 10px 40px rgba(93, 63, 211, 0.2);
+}
+
+.planCard.current {
+  background: linear-gradient(135deg, rgba(93, 63, 211, 0.05), rgba(29, 161, 242, 0.05));
+}
+
+.popularBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #5d3fd3, #1da1f2);
+  color: white;
+  padding: 0.375rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.currentBadge {
+  position: absolute;
+  top: -12px;
+  right: 1rem;
+  background: #10b981;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.planHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.planHeader h3 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.currency {
+  font-size: 1.25rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.period {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+/* Features List */
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.featuresList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.checkIcon {
+  color: #10b981;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.upgradeButton,
+.currentButton {
+  display: block;
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.upgradeButton {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.upgradeButton:hover {
+  background: #e2e8f0;
+}
+
+.featuredButton {
+  background: linear-gradient(135deg, #5d3fd3, #1da1f2);
+  color: white;
+}
+
+.featuredButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(93, 63, 211, 0.3);
+}
+
+.currentButton {
+  background: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Comparison Table */
+.comparisonSection {
+  margin-bottom: 4rem;
+}
+
+.comparisonSection h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  color: #0f172a;
+  margin-bottom: 2rem;
+}
+
+.comparisonTable {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.featureCell {
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.planCell {
+  padding: 1rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.tableHeader .planCell {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.planCell.highlighted {
+  background: rgba(93, 63, 211, 0.05);
+}
+
+.tableHeader .planCell.highlighted {
+  background: linear-gradient(135deg, rgba(93, 63, 211, 0.1), rgba(29, 161, 242, 0.1));
+  color: #5d3fd3;
+}
+
+/* FAQ */
+.faqSection {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faqSection h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  color: #0f172a;
+  margin-bottom: 2rem;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.faqItem {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.faqItem h4 {
+  font-size: 1rem;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.faqItem p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .membershipPage {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .plansGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .comparisonTable {
+    display: none;
+  }
+
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "mbti",
+    "name": "Myers-Briggs Type Indicator",
+    "nameZh": "迈尔斯-布里格斯性格类型指标",
+    "duration": "15-20分钟",
+    "description": "Understand your personality preferences across four dimensions.",
+    "descriptionZh": "通过四个维度了解您的性格偏好，发现您独特的16种人格类型之一。",
+    "focus": ["沟通风格", "决策方式", "团队协作", "职业发展"],
+    "category": "personality",
+    "isPremium": false,
+    "scientificBasis": "基于荣格心理类型理论，由凯瑟琳·布里格斯和伊莎贝尔·迈尔斯开发。",
+    "reliability": 0.85,
+    "validity": 0.78,
+    "references": [
+      {"id": "mbti-ref-1", "authors": ["Myers, I.B.", "McCaulley, M.H."], "year": 1985, "title": "Manual: A Guide to MBTI", "journal": "Consulting Psychologists Press"}
+    ],
+    "dimensions": [
+      {"id": "ei", "name": "外向-内向", "description": "能量来源", "lowLabel": "内向(I)", "highLabel": "外向(E)", "interpretation": {"low": "从独处获取能量", "medium": "平衡", "high": "从社交获取能量"}},
+      {"id": "sn", "name": "感觉-直觉", "description": "信息获取", "lowLabel": "感觉(S)", "highLabel": "直觉(N)", "interpretation": {"low": "关注细节", "medium": "平衡", "high": "关注模式"}},
+      {"id": "tf", "name": "思考-情感", "description": "决策方式", "lowLabel": "思考(T)", "highLabel": "情感(F)", "interpretation": {"low": "逻辑分析", "medium": "平衡", "high": "价值导向"}},
+      {"id": "jp", "name": "判断-感知", "description": "生活态度", "lowLabel": "判断(J)", "highLabel": "感知(P)", "interpretation": {"low": "计划有序", "medium": "平衡", "high": "灵活开放"}}
+    ],
+    "questions": [
+      {"id": "mbti-q1", "prompt": "在社交聚会后，您通常感到：", "type": "single-choice", "dimension": "ei", "options": ["精力充沛", "有些疲惫", "视情况而定"], "scoring": {"精力充沛": 2, "有些疲惫": 0, "视情况而定": 1}},
+      {"id": "mbti-q2", "prompt": "您更喜欢处理：", "type": "single-choice", "dimension": "sn", "options": ["具体实际问题", "抽象理论概念", "两者都喜欢"], "scoring": {"具体实际问题": 0, "抽象理论概念": 2, "两者都喜欢": 1}},
+      {"id": "mbti-q3", "prompt": "做重要决定时，您更依赖：", "type": "single-choice", "dimension": "tf", "options": ["逻辑分析", "个人价值观", "两者兼顾"], "scoring": {"逻辑分析": 0, "个人价值观": 2, "两者兼顾": 1}},
+      {"id": "mbti-q4", "prompt": "您更喜欢的工作方式是：", "type": "single-choice", "dimension": "jp", "options": ["按计划进行", "灵活应变", "视任务而定"], "scoring": {"按计划进行": 0, "灵活应变": 2, "视任务而定": 1}},
+      {"id": "mbti-q5", "prompt": "您在团队中更倾向于：", "type": "single-choice", "dimension": "ei", "options": ["主动发言引导", "倾听后发表", "视情境而定"], "scoring": {"主动发言引导": 2, "倾听后发表": 0, "视情境而定": 1}},
+      {"id": "mbti-q6", "prompt": "解决问题时，您更注重：", "type": "single-choice", "dimension": "sn", "options": ["过去经验", "新的可能性", "两者结合"], "scoring": {"过去经验": 0, "新的可能性": 2, "两者结合": 1}},
+      {"id": "mbti-q7", "prompt": "面对他人问题时，您首先：", "type": "single-choice", "dimension": "tf", "options": ["分析并提供方案", "表达理解支持", "视情况选择"], "scoring": {"分析并提供方案": 0, "表达理解支持": 2, "视情况选择": 1}},
+      {"id": "mbti-q8", "prompt": "对于截止日期，您通常：", "type": "single-choice", "dimension": "jp", "options": ["提前完成", "临近完成", "适中"], "scoring": {"提前完成": 0, "临近完成": 2, "适中": 1}}
+    ]
+  },
+  {
+    "id": "big-five",
+    "name": "Big Five Personality",
+    "nameZh": "大五人格测验",
+    "duration": "10-15分钟",
+    "description": "Measure five fundamental personality dimensions.",
+    "descriptionZh": "测量人格的五个基本维度：开放性、尽责性、外向性、宜人性和神经质。",
+    "focus": ["自我认知", "人际关系", "职业匹配", "心理健康"],
+    "category": "personality",
+    "isPremium": false,
+    "scientificBasis": "大五人格模型是最具科学基础的人格理论之一。",
+    "reliability": 0.89,
+    "validity": 0.85,
+    "references": [
+      {"id": "bf-ref-1", "authors": ["Costa, P.T.", "McCrae, R.R."], "year": 1992, "title": "Revised NEO Personality Inventory", "journal": "Psychological Assessment Resources"}
+    ],
+    "dimensions": [
+      {"id": "openness", "name": "开放性", "description": "对新体验的开放程度", "lowLabel": "传统", "highLabel": "开放", "interpretation": {"low": "偏好传统方式", "medium": "平衡", "high": "富有创造力"}},
+      {"id": "conscientiousness", "name": "尽责性", "description": "组织性和责任感", "lowLabel": "灵活", "highLabel": "严谨", "interpretation": {"low": "灵活随性", "medium": "平衡", "high": "高度自律"}},
+      {"id": "extraversion", "name": "外向性", "description": "社交活跃度", "lowLabel": "内敛", "highLabel": "外向", "interpretation": {"low": "安静内敛", "medium": "平衡", "high": "精力充沛"}},
+      {"id": "agreeableness", "name": "宜人性", "description": "合作性和同理心", "lowLabel": "独立", "highLabel": "友善", "interpretation": {"low": "独立直接", "medium": "平衡", "high": "乐于助人"}},
+      {"id": "neuroticism", "name": "神经质", "description": "情绪稳定性", "lowLabel": "稳定", "highLabel": "敏感", "interpretation": {"low": "情绪稳定", "medium": "平衡", "high": "情绪敏感"}}
+    ],
+    "questions": [
+      {"id": "bf-q1", "prompt": "我喜欢尝试新的活动", "type": "likert-5", "dimension": "openness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q2", "prompt": "我做事有条理", "type": "likert-5", "dimension": "conscientiousness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q3", "prompt": "在聚会上我总是充满活力", "type": "likert-5", "dimension": "extraversion", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q4", "prompt": "我容易信任他人", "type": "likert-5", "dimension": "agreeableness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q5", "prompt": "我常常感到焦虑", "type": "likert-5", "dimension": "neuroticism", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q6", "prompt": "我对艺术有浓厚兴趣", "type": "likert-5", "dimension": "openness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q7", "prompt": "我能按时完成任务", "type": "likert-5", "dimension": "conscientiousness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "bf-q8", "prompt": "我愿意帮助他人", "type": "likert-5", "dimension": "agreeableness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}}
+    ]
+  }
+]
