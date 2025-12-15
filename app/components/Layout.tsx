@@ -27,9 +27,17 @@ export default function Layout({ children }: LayoutProps) {
 
   // Close menus on route change
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-    setIsUserMenuOpen(false);
-  }, [router.pathname]);
+    const closeMenus = () => {
+      setIsMobileMenuOpen(false);
+      setIsUserMenuOpen(false);
+    };
+
+    router.events.on('routeChangeStart', closeMenus);
+
+    return () => {
+      router.events.off('routeChangeStart', closeMenus);
+    };
+  }, [router.events]);
 
   const navItems = [
     { href: '/', label: '首页', icon: Home },

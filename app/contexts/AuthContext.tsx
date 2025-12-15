@@ -21,15 +21,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // 从 localStorage 恢复用户状态
   useEffect(() => {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch {
-        localStorage.removeItem('currentUser');
+    let isCancelled = false;
+
+    const timer = setTimeout(() => {
+      if (isCancelled) {
+        return;
       }
-    }
-    setIsLoading(false);
+
+      const storedUser = localStorage.getItem('currentUser');
+
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser) as User);
+        } catch {
+          localStorage.removeItem('currentUser');
+        }
+      }
+
+      setIsLoading(false);
+    }, 0);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   // 登录
