@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import type { Submission } from '../../../lib/types';
-import { readSubmissions } from '../../../lib/dataStore';
+import { getSubmissionById } from '../../../lib/dataStore';
 import { normalizeIdForParam } from '../../../utils/assessmentApiUtils';
-
-const emptySubmissions: Submission[] = [];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -20,13 +18,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
-  const submissions = await readSubmissions(emptySubmissions);
-  const submission = submissions.find((item) => item.id === id);
+  try {
+    const submission = await getSubmissionById(id);
 
-  if (!submission) {
-    res.status(404).json({ error: 'Submission not found.' });
-    return;
+    if (!submission) {
+      res.status(404).json({ error: 'Submission not found.' });
+      return;
+    }
+
+    res.status(200).json(submission);
+  } catch {
+    res.status(500).json({ error: '服务器错误' });
   }
-
-  res.status(200).json(submission);
 }

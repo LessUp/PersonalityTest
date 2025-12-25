@@ -21,9 +21,9 @@ This is a Next.js application for taking and tracking personality assessments.
 
 ### Local Development
 
-1. Navigate to the app directory:
+1. Navigate to the web app directory:
    ```bash
-   cd app
+   cd apps/web
    ```
 
 2. Install dependencies:
@@ -48,7 +48,7 @@ docker-compose up --build
 
 ## Project Structure
 
-- `app/`: Main application code.
+- `apps/web/`: Main Next.js application code.
   - `pages/`: Next.js pages and API routes.
   - `styles/`: Global and module CSS files.
   - `data/`: Static data or content.

@@ -2,11 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { randomUUID } from 'crypto';
 
 import type { Assessment, Submission, Answer } from '../../../lib/types';
-import { readAssessments, readSubmissions, writeSubmissions } from '../../../lib/dataStore';
+import { createSubmission, getAssessmentById, listSubmissions } from '../../../lib/dataStore';
 import { generateDetailedResult, generateResultSummary } from '../../../lib/resultAnalyzer';
-
-const emptyAssessments: Assessment[] = [];
-const emptySubmissions: Submission[] = [];
 
 function validateEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -14,15 +11,16 @@ function validateEmail(email: string): boolean {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    const submissions = await readSubmissions(emptySubmissions);
-    res.status(200).json(submissions);
+    try {
+      const submissions = await listSubmissions();
+      res.status(200).json(submissions);
+    } catch {
+      res.status(500).json({ error: '服务器错误' });
+    }
     return;
   }
 
   if (req.method === 'POST') {
-    const submissions = await readSubmissions(emptySubmissions);
-    const assessments = await readAssessments(emptyAssessments);
-
     const { assessmentId, respondent, answers } = req.body as Partial<Submission> & {
       assessmentId?: string;
     };
@@ -33,7 +31,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       errors.push('`assessmentId` is required.');
     }
 
-    const assessment = assessments.find((item) => item.id === assessmentId);
+    let assessment: Assessment | null = null;
+    try {
+      assessment = assessmentId ? await getAssessmentById(assessmentId) : null;
+    } catch {
+      assessment = null;
+    }
 
     if (!assessment) {
       errors.push('The referenced assessment could not be found.');
@@ -82,7 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // 处理答案并计算分数
     const processedAnswers: Answer[] = answers!.map((answer) => {
-      const question = assessment!.questions.find(q => q.id === answer.questionId);
+      const question = assessment!.questions.find((q) => q.id === answer.questionId);
       const score = question?.scoring?.[answer.value.trim()];
       return {
         questionId: answer.questionId,
@@ -106,10 +109,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       completedAt: new Date().toISOString(),
     };
 
-    submissions.push(submission);
-    await writeSubmissions(submissions);
-
-    res.status(201).json(submission);
+    try {
+      await createSubmission(submission);
+      res.status(201).json(submission);
+    } catch {
+      res.status(500).json({ error: '服务器错误' });
+    }
     return;
   }
 

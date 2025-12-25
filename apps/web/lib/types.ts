@@ -82,6 +82,24 @@ export interface DimensionScore {
   interpretation: string;
 }
 
+export type ClinicalScaleId = 'phq9' | 'gad7';
+
+export type ClinicalSeverity =
+  | 'minimal'
+  | 'mild'
+  | 'moderate'
+  | 'moderately-severe'
+  | 'severe';
+
+export interface ClinicalScoringResult {
+  scaleId: ClinicalScaleId;
+  totalScore: number;
+  maxScore: number;
+  severity: ClinicalSeverity;
+  severityNameZh: string;
+  cutoffs: number[];
+}
+
 // 详细结果分析
 export interface DetailedResult {
   overallType?: string;
@@ -94,6 +112,8 @@ export interface DetailedResult {
   careerSuggestions: string[];
   relationshipTips: string[];
   actionableAdvice: string[];
+  clinical?: ClinicalScoringResult;
+  warnings?: string[];
 }
 
 export interface Submission {

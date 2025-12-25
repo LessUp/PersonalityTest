@@ -11,8 +11,10 @@ const securityHeaders = [
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const isNetlify = Boolean(process.env.NETLIFY);
+
 const nextConfig = {
-  output: 'standalone',
+  ...(isNetlify ? {} : { output: 'standalone' }),
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: {

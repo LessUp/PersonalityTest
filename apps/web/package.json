@@ -9,11 +9,12 @@
     "lint": "eslint .",
     "docker:build": "docker build -t personality-test-app -f Dockerfile .",
     "docker:run": "docker run --rm -p 3000:3000 personality-test-app",
-    "deploy": "docker compose -f ../docker-compose.yml up --build -d"
+    "deploy": "docker compose -f ../../docker-compose.yml up --build -d"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
+    "@supabase/supabase-js": "^2.45.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
