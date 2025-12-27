@@ -99,8 +99,8 @@ export default function ResultsPage() {
   return (
     <>
       <Head>
-        <title>结果中心 - 心理测评平台</title>
-        <meta name="description" content="查看您的心理测评结果和历史记录" />
+          <title>结果中心 - 人格测试咨询平台</title>
+        <meta name="description" content="查看您的人格测试结果和历史记录" />
       </Head>
 
       <div className={styles.resultsPage}>
@@ -152,7 +152,7 @@ export default function ResultsPage() {
             <div className={styles.emptyState}>
               <div className={styles.emptyIcon}>📋</div>
               <h3>还没有测试记录</h3>
-              <p>开始您的第一个心理测评，探索自己的内心世界</p>
+              <p>开始您的第一个人格测试，探索自己的性格特质</p>
               <Link href="/tests" className={styles.startButton}>
                 开始测评
               </Link>

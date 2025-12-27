@@ -10,15 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 
-type Category = 'all' | 'personality' | 'career' | 'mental-health' | 'relationship' | 'cognitive';
+type Category = 'all' | 'personality';
 
 const categoryLabels: Record<Category, string> = {
   all: '全部',
   personality: '人格测试',
-  career: '职业发展',
-  'mental-health': '心理健康',
-  relationship: '人际关系',
-  cognitive: '认知能力',
 };
 
 const AssessmentsPage = () => {
@@ -85,8 +81,8 @@ const AssessmentsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <Head>
-        <title>测评中心 - 心理测评平台</title>
-        <meta name="description" content="浏览专业心理测评量表，探索自我" />
+        <title>测评中心 - 人格测试咨询平台</title>
+        <meta name="description" content="浏览专业人格测试量表，探索自我" />
       </Head>
 
       <main className="container mx-auto px-4 py-12 max-w-6xl space-y-12">
@@ -96,10 +92,10 @@ const AssessmentsPage = () => {
             测评中心
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
-            探索专业心理量表
+            探索专业人格测试
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-            基于科学研究的心理测评工具，帮助您更好地了解自己，发现潜能，规划未来。
+            基于科学研究的人格测试工具，帮助您更好地了解自己的性格特质，发现潜能，规划未来。
           </p>
         </section>
 
@@ -148,7 +144,7 @@ const AssessmentsPage = () => {
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">如何选择适合的测评</h2>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 每个测评都基于成熟的心理学研究，并配有科学的结果解读。您可以根据关注领域选择测评——
-                无论是提升团队协作、探索职业方向，还是深入了解自我。
+                无论是提升团队协作、优化沟通方式，还是深入了解自己的性格特质。
               </p>
             </div>
           </div>

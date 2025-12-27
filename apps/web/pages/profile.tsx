@@ -61,7 +61,7 @@ export default function ProfilePage() {
   return (
     <>
       <Head>
-        <title>个人中心 - 心理测评平台</title>
+        <title>个人中心 - 人格测试咨询平台</title>
         <meta name="description" content="管理您的账户和会员信息" />
       </Head>
 

@@ -54,7 +54,7 @@ export interface Assessment {
   description: string;
   descriptionZh: string; // 中文描述
   focus: string[];
-  category: 'personality' | 'career' | 'mental-health' | 'relationship' | 'cognitive';
+  category: 'personality';
   isPremium: boolean; // 是否为会员专属
   questions: Question[];
   dimensions?: AssessmentDimension[];
@@ -82,24 +82,6 @@ export interface DimensionScore {
   interpretation: string;
 }
 
-export type ClinicalScaleId = 'phq9' | 'gad7';
-
-export type ClinicalSeverity =
-  | 'minimal'
-  | 'mild'
-  | 'moderate'
-  | 'moderately-severe'
-  | 'severe';
-
-export interface ClinicalScoringResult {
-  scaleId: ClinicalScaleId;
-  totalScore: number;
-  maxScore: number;
-  severity: ClinicalSeverity;
-  severityNameZh: string;
-  cutoffs: number[];
-}
-
 // 详细结果分析
 export interface DetailedResult {
   overallType?: string;
@@ -112,8 +94,6 @@ export interface DetailedResult {
   careerSuggestions: string[];
   relationshipTips: string[];
   actionableAdvice: string[];
-  clinical?: ClinicalScoringResult;
-  warnings?: string[];
 }
 
 export interface Submission {

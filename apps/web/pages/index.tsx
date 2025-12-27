@@ -27,7 +27,7 @@ const discoveryCards = [
   {
     eyebrow: '开始探索',
     title: '浏览测评库',
-    description: '从 MBTI 到大五人格、DISC 到霍兰德职业兴趣，找到适合您目标的测评。',
+    description: '从 MBTI 到大五人格、DISC 到九型人格，找到适合您目标的人格测评。',
     href: '/tests',
     cta: '查看所有测评',
     variant: 'default' as const,
@@ -64,10 +64,10 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <Head>
-        <title>心理测评平台 - 探索自我，发现潜能</title>
+        <title>人格测试咨询平台 - 探索自我，发现潜能</title>
         <meta
           name="description"
-          content="专业的心理测评平台，提供 MBTI、大五人格、DISC 等科学量表，帮助您深入了解自己。"
+          content="专业的人格测试咨询平台，提供 MBTI、大五人格、DISC、九型人格、情商评估等科学量表，帮助您深入了解自己的人格特质。"
         />
       </Head>
 

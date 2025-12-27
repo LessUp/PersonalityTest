@@ -39,7 +39,7 @@
     "duration": "10-15分钟",
     "description": "Measure five fundamental personality dimensions.",
     "descriptionZh": "测量人格的五个基本维度：开放性、尽责性、外向性、宜人性和神经质。",
-    "focus": ["自我认知", "人际关系", "职业匹配", "心理健康"],
+    "focus": ["自我认知", "人际关系", "职业匹配", "情绪管理"],
     "category": "personality",
     "isPremium": false,
     "scientificBasis": "大五人格模型是最具科学基础的人格理论之一。",
@@ -64,6 +64,36 @@
       {"id": "bf-q6", "prompt": "我对艺术有浓厚兴趣", "type": "likert-5", "dimension": "openness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
       {"id": "bf-q7", "prompt": "我能按时完成任务", "type": "likert-5", "dimension": "conscientiousness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
       {"id": "bf-q8", "prompt": "我愿意帮助他人", "type": "likert-5", "dimension": "agreeableness", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}}
+    ]
+  },
+  {
+    "id": "enneagram",
+    "name": "Enneagram Personality",
+    "nameZh": "九型人格测验",
+    "duration": "12-15分钟",
+    "description": "Discover your core motivations and personality type among nine distinct patterns.",
+    "descriptionZh": "发现您在九种人格类型中的核心动机和行为模式。",
+    "focus": ["自我认知", "人际关系", "个人成长", "内在动机"],
+    "category": "personality",
+    "isPremium": false,
+    "scientificBasis": "九型人格理论源于古代智慧传统，经现代心理学发展完善。",
+    "reliability": 0.78,
+    "validity": 0.72,
+    "references": [
+      {"id": "enneagram-ref-1", "authors": ["Riso, D.R.", "Hudson, R."], "year": 1999, "title": "The Wisdom of the Enneagram", "journal": "Bantam Books"}
+    ],
+    "dimensions": [
+      {"id": "type", "name": "九型人格类型", "description": "核心人格类型", "lowLabel": "1型", "highLabel": "9型", "interpretation": {"low": "完美主义型", "medium": "平衡型", "high": "和平型"}}
+    ],
+    "questions": [
+      {"id": "enneagram-q1", "prompt": "我追求完美，希望凡事都做到最好", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q2", "prompt": "我关心他人的需要，喜欢帮助人", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q3", "prompt": "我追求成功，希望被他人认可", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q4", "prompt": "我有独特的艺术气质，情感丰富", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q5", "prompt": "我喜欢观察和思考，享受独处", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q6", "prompt": "我容易感到焦虑，经常担心安全", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q7", "prompt": "我喜欢新鲜事物，害怕受限", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}},
+      {"id": "enneagram-q8", "prompt": "我强势自信，喜欢掌控局面", "type": "likert-5", "dimension": "type", "options": ["非常不同意", "不同意", "中立", "同意", "非常同意"], "scoring": {"非常不同意": 1, "不同意": 2, "中立": 3, "同意": 4, "非常同意": 5}}
     ]
   }
 ]

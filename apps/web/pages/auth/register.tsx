@@ -50,7 +50,7 @@ export default function RegisterPage() {
     const result = await register(name, email, password);
     
     if (result.success) {
-      toast.success('注册成功', '欢迎加入心理测评平台！');
+      toast.success('注册成功', '欢迎加入人格测试咨询平台！');
       router.push('/');
     } else {
       setError(result.error || '注册失败');
@@ -71,8 +71,8 @@ export default function RegisterPage() {
   return (
     <>
       <Head>
-        <title>注册 - 心理测评平台</title>
-        <meta name="description" content="创建您的心理测评账户" />
+        <title>注册 - 人格测试咨询平台</title>
+        <meta name="description" content="创建您的人格测试账户" />
       </Head>
 
       <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 relative overflow-hidden">

@@ -7,7 +7,7 @@ export default function Custom404() {
   return (
     <>
       <Head>
-        <title>页面未找到 - 心理测评平台</title>
+        <title>页面未找到 - 人格测试咨询平台</title>
       </Head>
 
       <div className="min-h-[70vh] flex items-center justify-center px-4">

@@ -74,7 +74,7 @@ export default function Layout({ children }: LayoutProps) {
             <Link href="/" className="flex items-center gap-2 group">
               <span className="text-2xl">🧠</span>
               <span className="font-bold text-xl text-gray-900 dark:text-white group-hover:text-indigo-600 transition-colors">
-                心理测评
+                人格测试
               </span>
             </Link>
 
@@ -253,7 +253,7 @@ export default function Layout({ children }: LayoutProps) {
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-2xl">🧠</span>
-                <span className="font-bold text-xl text-white">心理测评平台</span>
+                <span className="font-bold text-xl text-white">人格测试咨询平台</span>
               </div>
               <p className="text-sm leading-relaxed max-w-md">
                 专业、科学的心理评估工具，帮助您更好地了解自己。基于权威心理学理论，提供准确的测评分析和个性化建议。
@@ -272,12 +272,12 @@ export default function Layout({ children }: LayoutProps) {
               <h4 className="font-semibold text-white mb-4">联系我们</h4>
               <ul className="space-y-2 text-sm">
                 <li>📧 support@example.com</li>
-                <li>📱 微信公众号: 心理测评</li>
+                <li>📱 微信公众号: 人格测试</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-            <p>© {new Date().getFullYear()} 心理测评平台. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} 人格测试咨询平台. All rights reserved.</p>
           </div>
         </div>
       </footer>

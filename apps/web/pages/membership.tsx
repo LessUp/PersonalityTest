@@ -15,8 +15,8 @@ export default function MembershipPage() {
   return (
     <>
       <Head>
-        <title>会员服务 - 心理测评平台</title>
-        <meta name="description" content="解锁更多专业心理测评工具和深度分析报告" />
+        <title>会员服务 - 人格测试咨询平台</title>
+        <meta name="description" content="解锁更多专业人格测试工具和深度分析报告" />
       </Head>
 
       <div className={styles.membershipPage}>
@@ -173,7 +173,7 @@ export default function MembershipPage() {
               <div className={styles.planCell}>✓</div>
             </div>
             <div className={styles.tableRow}>
-              <div className={styles.featureCell}>专业心理量表</div>
+              <div className={styles.featureCell}>专业人格测试</div>
               <div className={styles.planCell}>-</div>
               <div className={styles.planCell}>-</div>
               <div className={`${styles.planCell} ${styles.highlighted}`}>✓</div>
@@ -210,7 +210,7 @@ export default function MembershipPage() {
             </div>
             <div className={styles.faqItem}>
               <h4>付费方案有什么额外好处？</h4>
-              <p>付费会员可以获得详细的分析报告、专业的心理量表、无限次测试以及优先技术支持。</p>
+              <p>付费会员可以获得详细的分析报告、专业的人格测试、无限次测试以及优先技术支持。</p>
             </div>
             <div className={styles.faqItem}>
               <h4>是否提供企业方案？</h4>

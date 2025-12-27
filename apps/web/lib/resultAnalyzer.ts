@@ -1,8 +1,6 @@
 import type {
   Assessment,
   Answer,
-  ClinicalScaleId,
-  ClinicalScoringResult,
   DetailedResult,
   DimensionScore,
 } from './types';
@@ -68,7 +66,7 @@ export function generateDetailedResult(
   answers: Answer[]
 ): DetailedResult {
   const dimensionScores = calculateDimensionScores(assessment, answers);
-  
+
   // 根据测试类型生成不同的分析结果
   const result: DetailedResult = {
     dimensionScores,
@@ -110,17 +108,6 @@ export function generateDetailedResult(
     result.growthAreas = generateDISCGrowthAreas(dimensionScores);
   }
 
-  // 心理健康量表分析
-  else if (assessment.id === 'phq9' || assessment.id === 'gad7') {
-    const scaleId = assessment.id as ClinicalScaleId;
-    const { clinical, warnings } = calculateClinicalScoring(assessment, answers);
-    result.clinical = clinical;
-    result.warnings = warnings;
-
-    applyClinicalToDimensionScores(scaleId, clinical, warnings, dimensionScores);
-    result.actionableAdvice = generateMentalHealthAdvice(scaleId, clinical);
-  }
-
   // 通用分析
   result.actionableAdvice = [
     ...result.actionableAdvice,
@@ -128,113 +115,6 @@ export function generateDetailedResult(
   ];
 
   return result;
-}
-
-function calculateClinicalScoring(
-  assessment: Assessment,
-  answers: Answer[]
-): { clinical: ClinicalScoringResult; warnings: string[] } {
-  const scaleId = assessment.id as ClinicalScaleId;
-  const warnings: string[] = [];
-
-  const totalScore = answers.reduce((sum, item) => sum + (item.score ?? 0), 0);
-
-  const expected =
-    scaleId === 'phq9'
-      ? { maxScore: 27, expectedQuestions: 9, cutoffs: [0, 5, 10, 15, 20] }
-      : { maxScore: 21, expectedQuestions: 7, cutoffs: [0, 5, 10, 15] };
-
-  if (assessment.questions.length !== expected.expectedQuestions) {
-    warnings.push(
-      `当前题库题目数量为 ${assessment.questions.length}，但官方 ${scaleId.toUpperCase()} 量表应为 ${expected.expectedQuestions} 题；本次结果仅供参考。`
-    );
-  }
-
-  if (scaleId === 'phq9') {
-    const severity =
-      totalScore <= 4
-        ? { code: 'minimal' as const, nameZh: '无或极轻度' }
-        : totalScore <= 9
-          ? { code: 'mild' as const, nameZh: '轻度' }
-          : totalScore <= 14
-            ? { code: 'moderate' as const, nameZh: '中度' }
-            : totalScore <= 19
-              ? { code: 'moderately-severe' as const, nameZh: '中重度' }
-              : { code: 'severe' as const, nameZh: '重度' };
-
-    return {
-      clinical: {
-        scaleId,
-        totalScore,
-        maxScore: expected.maxScore,
-        severity: severity.code,
-        severityNameZh: severity.nameZh,
-        cutoffs: expected.cutoffs,
-      },
-      warnings,
-    };
-  }
-
-  // gad7
-  const severity =
-    totalScore <= 4
-      ? { code: 'minimal' as const, nameZh: '无或极轻度' }
-      : totalScore <= 9
-        ? { code: 'mild' as const, nameZh: '轻度' }
-        : totalScore <= 14
-          ? { code: 'moderate' as const, nameZh: '中度' }
-          : { code: 'severe' as const, nameZh: '重度' };
-
-  return {
-    clinical: {
-      scaleId,
-      totalScore,
-      maxScore: expected.maxScore,
-      severity: severity.code,
-      severityNameZh: severity.nameZh,
-      cutoffs: expected.cutoffs,
-    },
-    warnings,
-  };
-}
-
-function applyClinicalToDimensionScores(
-  assessmentId: ClinicalScaleId,
-  clinical: ClinicalScoringResult,
-  warnings: string[],
-  dimensionScores: DimensionScore[]
-): void {
-  if (dimensionScores.length === 0) {
-    return;
-  }
-
-  // 兼容前端现有字段：保留 dimensionScores，但让 level 反映临床严重度（而不是百分比阈值）
-  const level: 'low' | 'medium' | 'high' =
-    clinical.severity === 'minimal' || clinical.severity === 'mild'
-      ? 'low'
-      : clinical.severity === 'moderate'
-        ? 'medium'
-        : 'high';
-
-  const primary = dimensionScores[0];
-  const useOfficialMaxScore = warnings.length === 0;
-
-  primary.score = clinical.totalScore;
-  if (useOfficialMaxScore) {
-    primary.maxScore = clinical.maxScore;
-    primary.percentage =
-      clinical.maxScore > 0 ? Math.round((clinical.totalScore / clinical.maxScore) * 100) : 0;
-  }
-  primary.level = level;
-
-  // 保持 interpretation 按 low/medium/high 取值（当前数据结构只有三档解释）
-  if (assessmentId === 'phq9') {
-    primary.dimensionName = 'PHQ-9 总分';
-    primary.dimensionId = 'phq9-total';
-  } else {
-    primary.dimensionName = 'GAD-7 总分';
-    primary.dimensionId = 'gad7-total';
-  }
 }
 
 // MBTI 类型计算
@@ -412,41 +292,6 @@ function generateDISCGrowthAreas(scores: DimensionScore[]): string[] {
   return areas;
 }
 
-// 心理健康建议
-function generateMentalHealthAdvice(
-  assessmentId: ClinicalScaleId,
-  clinical: ClinicalScoringResult
-): string[] {
-  const advice: string[] = [];
-
-  if (assessmentId === 'phq9') {
-    if (clinical.severity === 'minimal') {
-      advice.push('当前抑郁症状水平为无或极轻度，建议继续保持规律作息、运动与社会支持。');
-    } else if (clinical.severity === 'mild') {
-      advice.push('当前抑郁症状水平为轻度，可尝试增加运动、睡眠管理与压力调节。');
-      advice.push('如症状持续超过2周或影响功能，建议咨询专业人士。');
-    } else if (clinical.severity === 'moderate') {
-      advice.push('当前抑郁症状水平为中度，建议进行进一步评估，并考虑专业心理支持（如心理治疗）。');
-    } else if (clinical.severity === 'moderately-severe') {
-      advice.push('当前抑郁症状水平为中重度，建议尽快寻求专业心理健康服务（心理治疗/精神科评估）。');
-    } else {
-      advice.push('当前抑郁症状水平为重度，建议尽快就医进行专业评估与干预。');
-    }
-  } else if (assessmentId === 'gad7') {
-    if (clinical.severity === 'minimal') {
-      advice.push('当前焦虑症状水平为无或极轻度，可继续保持规律作息与适度运动。');
-    } else if (clinical.severity === 'mild') {
-      advice.push('当前焦虑症状水平为轻度，可尝试放松训练（深呼吸、正念冥想）与减少咖啡因摄入。');
-    } else if (clinical.severity === 'moderate') {
-      advice.push('当前焦虑症状水平为中度，建议进一步评估，并考虑专业心理支持（如认知行为疗法）。');
-    } else {
-      advice.push('当前焦虑症状水平为重度，建议尽快寻求专业帮助进行评估与干预。');
-    }
-  }
-
-  return advice;
-}
-
 // 通用建议
 function generateGeneralAdvice(assessment: Assessment, scores: DimensionScore[]): string[] {
   return [
@@ -461,12 +306,6 @@ export function generateResultSummary(
   assessment: Assessment,
   detailedResult: DetailedResult
 ): string {
-  if (detailedResult.clinical) {
-    const base = `${assessment.nameZh || assessment.name}总分 ${detailedResult.clinical.totalScore}/${detailedResult.clinical.maxScore}，严重度：${detailedResult.clinical.severityNameZh}。`;
-    const warning = detailedResult.warnings && detailedResult.warnings.length > 0 ? `（注意：${detailedResult.warnings[0]}）` : '';
-    return `${base}${warning}`;
-  }
-
   if (detailedResult.overallType && detailedResult.typeName) {
     return `您的${assessment.nameZh || assessment.name}结果为 ${detailedResult.overallType} (${detailedResult.typeName})。${detailedResult.typeDescription || ''}`;
   }

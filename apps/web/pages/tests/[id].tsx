@@ -171,12 +171,12 @@ const AssessmentDetailPage = () => {
   const handleShare = async () => {
     if (!submissionResult) return;
     
-    const shareText = `我在心理测评平台完成了「${assessment?.nameZh || assessment?.name}」测评！结果：${submissionResult.resultSummary}`;
+    const shareText = `我在人格测试咨询平台完成了「${assessment?.nameZh || assessment?.name}」测评！结果：${submissionResult.resultSummary}`;
     
     if (navigator.share) {
       try {
         await navigator.share({
-          title: '我的心理测评结果',
+          title: '我的人格测试结果',
           text: shareText,
           url: window.location.href,
         });
@@ -208,8 +208,8 @@ const AssessmentDetailPage = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900/50 py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>{assessment ? (assessment.nameZh || assessment.name) : '测评详情'} - 心理测评平台</title>
-        <meta name="description" content={assessment?.descriptionZh || assessment?.description || '心理测评详情'} />
+        <title>{assessment ? (assessment.nameZh || assessment.name) : '测评详情'} - 人格测试咨询平台</title>
+        <meta name="description" content={assessment?.descriptionZh || assessment?.description || '人格测试详情'} />
       </Head>
 
       <main className="max-w-3xl mx-auto space-y-8">

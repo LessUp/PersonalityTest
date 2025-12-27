@@ -50,8 +50,8 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>登录 - 心理测评平台</title>
-        <meta name="description" content="登录您的心理测评账户" />
+        <title>登录 - 人格测试咨询平台</title>
+        <meta name="description" content="登录您的人格测试账户" />
       </Head>
 
       <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 relative overflow-hidden">
@@ -67,7 +67,7 @@ export default function LoginPage() {
               <span className="text-3xl">🧠</span>
             </div>
             <CardTitle className="text-2xl">欢迎回来</CardTitle>
-            <CardDescription>登录以继续您的心理探索之旅</CardDescription>
+            <CardDescription>登录以继续您的人格探索之旅</CardDescription>
           </CardHeader>
 
           <CardContent>

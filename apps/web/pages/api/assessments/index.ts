@@ -8,8 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const assessments = await listAssessments();
       res.status(200).json(assessments);
-    } catch {
-      res.status(500).json({ error: '服务器错误' });
+    } catch (error) {
+      console.error('Failed to list assessments:', error);
+      res.status(500).json({ error: '加载测评失败，请稍后重试' });
     }
     return;
   }

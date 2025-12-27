@@ -73,36 +73,92 @@ async function ensureBundledAssessmentsSeeded(): Promise<void> {
 }
 
 export async function listAssessments(): Promise<Assessment[]> {
-  await ensureBundledAssessmentsSeeded();
-  const supabase = getSupabaseAdminClient();
+  try {
+    await ensureBundledAssessmentsSeeded();
+    const supabase = getSupabaseAdminClient();
 
-  const { data, error } = await supabase.from('assessments').select('id,data,updated_at').order('id');
+    const { data, error } = await supabase.from('assessments').select('id,data,updated_at').order('id');
 
-  if (error) {
-    throw error;
+    if (error) {
+      throw error;
+    }
+
+    const result = ((data ?? []) as AssessmentRow[]).map((row) => row.data);
+    if (result.length > 0) {
+      return result;
+    }
+  } catch (error) {
+    console.warn('Failed to load assessments from database, falling back to local files:', error);
   }
 
-  return ((data ?? []) as AssessmentRow[]).map((row) => row.data);
+  // Fallback to local JSON files
+  try {
+    const [extended, additional, base] = await Promise.all([
+      import('../data/assessments-extended.json'),
+      import('../data/additional-assessments.json'),
+      import('../data/assessments.json'),
+    ]);
+
+    const merged = [
+      ...((extended.default ?? []) as Assessment[]),
+      ...((additional.default ?? []) as Assessment[]),
+      ...((base.default ?? []) as Assessment[]),
+    ];
+
+    const deduped = new Map<string, Assessment>();
+    merged.forEach((item) => {
+      if (item && typeof item.id === 'string' && item.id.trim().length > 0) {
+        deduped.set(item.id, item);
+      }
+    });
+
+    return Array.from(deduped.values());
+  } catch (error) {
+    console.error('Failed to load assessments from local files:', error);
+    throw new Error('无法加载测评数据');
+  }
 }
 
 export async function getAssessmentById(id: string): Promise<Assessment | null> {
-  const supabase = getSupabaseAdminClient();
+  try {
+    const supabase = getSupabaseAdminClient();
 
-  const { data, error } = await supabase
-    .from('assessments')
-    .select('id,data,updated_at')
-    .eq('id', id)
-    .maybeSingle();
+    const { data, error } = await supabase
+      .from('assessments')
+      .select('id,data,updated_at')
+      .eq('id', id)
+      .maybeSingle();
 
-  if (error) {
-    throw error;
+    if (error) {
+      throw error;
+    }
+
+    if (data) {
+      return (data as AssessmentRow).data;
+    }
+  } catch (error) {
+    console.warn('Failed to load assessment from database, falling back to local files:', error);
   }
 
-  if (!data) {
+  // Fallback to local JSON files
+  try {
+    const [extended, additional, base] = await Promise.all([
+      import('../data/assessments-extended.json'),
+      import('../data/additional-assessments.json'),
+      import('../data/assessments.json'),
+    ]);
+
+    const merged = [
+      ...((extended.default ?? []) as Assessment[]),
+      ...((additional.default ?? []) as Assessment[]),
+      ...((base.default ?? []) as Assessment[]),
+    ];
+
+    return merged.find((item) => item?.id === id) ?? null;
+  } catch (error) {
+    console.error('Failed to load assessment from local files:', error);
     return null;
   }
-
-  return (data as AssessmentRow).data;
 }
 
 export async function createAssessment(assessment: Assessment): Promise<void> {

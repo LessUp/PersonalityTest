@@ -20,7 +20,7 @@ export default function AboutPage() {
     {
       icon: Brain,
       title: '科学理论基础',
-      description: '所有测评基于权威心理学理论，包括大五人格、MBTI、艾森克人格理论等经典模型。',
+      description: '所有测评基于权威心理学理论，包括大五人格、MBTI、DISC、九型人格等经典模型。',
     },
     {
       icon: Shield,
@@ -55,8 +55,8 @@ export default function AboutPage() {
   return (
     <>
       <Head>
-        <title>关于我们 - 心理测评平台</title>
-        <meta name="description" content="了解心理测评平台的使命、愿景和核心价值观" />
+        <title>关于我们 - 人格测试咨询平台</title>
+        <meta name="description" content="了解人格测试咨询平台的使命、愿景和核心价值观" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-indigo-50/50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -72,7 +72,7 @@ export default function AboutPage() {
               认识自己，是一切智慧的开始
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 animate-fade-in">
-              我们致力于通过科学的心理测评工具，帮助每个人更好地了解自己，发现潜能，实现个人成长。
+              我们致力于通过科学的人格测试工具，帮助每个人更好地了解自己，发现潜能，实现个人成长。
             </p>
             <div className="flex justify-center gap-4 animate-fade-in">
               <Button asChild size="lg">
@@ -112,7 +112,7 @@ export default function AboutPage() {
                 为什么选择我们
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                我们的心理测评平台结合了专业性、便捷性和趣味性，让您轻松探索内心世界。
+                我们的人格测试咨询平台结合了专业性、便捷性和趣味性，让您轻松探索性格特质。
               </p>
             </div>
 
@@ -196,9 +196,9 @@ export default function AboutPage() {
                     {[
                       '大五人格模型 (Big Five / OCEAN) - 当前心理学界最广泛接受的人格理论',
                       'MBTI 迈尔斯-布里格斯性格分类指标 - 世界上最流行的性格测试工具',
-                      '艾森克人格理论 - 关注外向性、神经质和精神质三个维度',
-                      '霍兰德职业兴趣理论 - 帮助了解职业倾向和适合的工作环境',
-                      '积极心理学 - 关注个人优势和幸福感的科学研究',
+                      'DISC 行为风格测评 - 识别支配型、影响型、稳健型和谨慎型四种行为风格',
+                      '九型人格理论 - 基于内在动机和行为模式的九种人格类型',
+                      '情商理论 - 评估情绪感知、理解、管理和运用能力',
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
